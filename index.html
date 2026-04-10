@@ -3,868 +3,815 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tantris — Maison Culinaire München</title>
+<title>Tantris | München — Schwabing</title>
+<meta name="description" content="Tantris — Maison Culinaire seit 1971. München — Schwabing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #080608;
-    --bg2: #0C0A0C;
-    --bg3: #100E10;
-    --surface: #161216;
-    --border: rgba(210,160,60,0.16);
-    --gold: #D2A03C;
-    --gold2: #E8C060;
-    --red: #8B1A2A;
-    --red2: #B02235;
-    --cream: #EAE0CC;
-    --text: #C0B8A8;
-    --muted: #6A6258;
-    --white: #F2EEE4;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+/* ===== RESET & VARIABLES ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A0A;--bg-light:#111111;--bg-lighter:#141414;--bg-card:#1A1A1A;--bg-card-hover:#1F1F1F;
+  --text:#E8E4DF;--text-muted:#9A958E;--text-light:#C4BFB8;
+  --accent:#C5A572;--accent-light:#D4BC8E;--accent-dark:#A08050;
+  --font-display:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;
+  --transition-fast:.2s ease;--transition:.4s ease;--transition-slow:.6s ease;
+  --radius-sm:4px;--radius:8px;--radius-lg:12px;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.3);--shadow:0 4px 20px rgba(0,0,0,.4);--shadow-lg:0 8px 40px rgba(0,0,0,.5);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+::selection{background:var(--accent);color:var(--bg)}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent);text-decoration:none;transition:color var(--transition-fast)}
+a:hover{color:var(--accent-light)}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:400;line-height:1.2}
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 2rem 5rem;
-    display: flex; align-items: center; justify-content: space-between;
-    transition: all 0.5s ease;
-  }
-  nav.scrolled {
-    background: rgba(8,6,8,0.97);
-    backdrop-filter: blur(24px);
-    padding: 1.2rem 5rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--gold2);
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-  .nav-tagline {
-    font-size: 0.68rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.1rem;
-  }
-  .nav-links {
-    display: flex; gap: 3rem; list-style: none;
-  }
-  .nav-links a {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold2); }
-  .nav-cta {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold2);
-    padding: 0.7rem 2rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .nav-cta:hover { background: var(--gold); color: var(--bg); }
+/* Ultra-modern Tantris */
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding-bottom: 8rem;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 80%, rgba(139,26,42,0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 75% 30%, rgba(210,160,60,0.06) 0%, transparent 45%),
-      linear-gradient(180deg, #080608 0%, #0A080A 60%, #080608 100%);
-  }
-  /* Subtle grid */
-  .hero-grid-bg {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(210,160,60,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(210,160,60,0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
-  }
-  /* Large "T" watermark */
-  .hero-watermark {
-    position: absolute;
-    right: -2%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 40vw;
-    font-weight: 700;
-    color: rgba(210,160,60,0.03);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-  .hero-content {
-    position: relative; z-index: 2;
-    padding: 0 5rem;
-    max-width: 1300px;
-    width: 100%;
-  }
-  .hero-stars {
-    display: flex; gap: 0.4rem; align-items: center;
-    margin-bottom: 2rem;
-  }
-  .star {
-    color: var(--gold2);
-    font-size: 1rem;
-  }
-  .star-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-left: 0.5rem;
-  }
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(5rem, 11vw, 11rem);
-    font-weight: 300;
-    line-height: 0.9;
-    color: var(--white);
-    letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-  }
-  .hero-title .accent { color: var(--gold2); }
-  .hero-meta {
-    display: flex;
-    gap: 4rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .hero-meta-desc {
-    font-size: 1rem;
-    color: var(--text);
-    max-width: 420px;
-    line-height: 1.9;
-    font-weight: 300;
-  }
-  .hero-meta-info {
-    display: flex; gap: 2rem;
-  }
-  .hero-info-item {
-    text-align: center;
-  }
-  .hero-info-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
-    color: var(--gold2);
-    font-weight: 600;
-    line-height: 1;
-  }
-  .hero-info-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.3rem;
-  }
+/* ===== NAVIGATION ===== */
+.nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;transition:all var(--transition);background:transparent}
+.nav.scrolled{background:rgba(10,10,10,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:1rem 3rem;box-shadow:var(--shadow)}
+.nav-logo{font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--text);letter-spacing:.05em;white-space:nowrap}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{color:var(--text-muted);font-size:.8rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;position:relative;padding-bottom:.3rem;transition:color var(--transition-fast)}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--accent);transition:width .3s ease}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:.5rem;z-index:1001}
+.nav-toggle span{width:24px;height:2px;background:var(--text);transition:all .3s;display:block}
+.mobile-nav{display:none;position:fixed;inset:0;background:rgba(10,10,10,.98);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-nav.active{display:flex}
+.mobile-nav a{color:var(--text);font-family:var(--font-display);font-size:1.8rem;font-weight:300;letter-spacing:.05em}
+.mobile-nav a:hover{color:var(--accent)}
 
-  /* SECTION BASE */
-  section { padding: 8rem 5rem; }
-  .section-tag {
-    font-size: 0.7rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.8rem, 4.5vw, 4.2rem);
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1.05;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.01em;
-  }
-  .section-title .italic { font-style: italic; }
-  .section-sub {
-    font-size: 0.95rem;
-    color: var(--muted);
-    max-width: 540px;
-    line-height: 1.9;
-    font-weight: 300;
-  }
-  .divider {
-    width: 40px; height: 1px;
-    background: var(--gold);
-    margin: 2rem 0;
-  }
+/* ===== HERO ===== */
+.hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=1400&q=80') center/cover no-repeat;transform:scale(1.05);animation:heroZoom 20s ease infinite alternate}
+@keyframes heroZoom{0%{transform:scale(1.05)}100%{transform:scale(1.12)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.3) 0%,rgba(10,10,10,.5) 40%,rgba(10,10,10,.85) 100%)}
+.hero-content{position:relative;text-align:center;max-width:800px;padding:0 2rem}
+.hero-sub{font-family:var(--font-body);font-size:.8rem;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;font-weight:500}
+.hero-title{font-family:var(--font-display);font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;color:var(--text)}
+.hero-title em{font-style:italic;color:var(--accent)}
+.hero-desc{font-size:1.05rem;color:var(--text-muted);max-width:550px;margin:0 auto 2.5rem;line-height:1.8;font-weight:300}
+.hero-cta{display:inline-block;padding:.9rem 2.8rem;border:1px solid var(--accent);color:var(--accent);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;font-weight:500;transition:all var(--transition);position:relative;overflow:hidden}
+.hero-cta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--accent);transition:left var(--transition);z-index:-1}
+.hero-cta:hover{color:var(--bg)}
+.hero-cta:hover::before{left:0}
+.hero-scroll{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-muted);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase}
+.hero-scroll-line{width:1px;height:50px;background:linear-gradient(180deg,var(--accent),transparent);animation:scrollPulse 2s ease infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
 
-  /* PHILOSOPHY */
-  .philosophy {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-  }
-  .phil-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 6rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-  }
-  .phil-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--cream);
-    line-height: 1.5;
-    margin: 2rem 0;
-    padding-left: 1.5rem;
-    border-left: 2px solid var(--gold);
-  }
-  .chef-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 2.5rem;
-  }
-  .chef-title {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.8rem;
-  }
-  .chef-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    color: var(--white);
-    font-weight: 400;
-    margin-bottom: 1rem;
-  }
-  .chef-desc {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.8;
-  }
-  .awards {
-    display: flex; gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
-  .award-badge {
-    background: rgba(210,160,60,0.1);
-    border: 1px solid rgba(210,160,60,0.25);
-    padding: 0.4rem 1rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    color: var(--gold2);
-  }
+/* ===== SECTION BASICS ===== */
+.section{padding:7rem 2rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;font-weight:600}
+.section-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:1.5rem}
+.section-text{color:var(--text-muted);max-width:700px;line-height:1.9;font-size:.95rem;font-weight:300}
+.divider{width:60px;height:1px;background:var(--accent);margin:2rem 0}
+.section-center{text-align:center}
+.section-center .divider{margin:2rem auto}
+.section-center .section-text{margin:0 auto}
 
-  /* RESTAURANTS */
-  .restaurants {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-  }
-  .rest-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    margin-top: 3rem;
-  }
-  .rest-card {
-    background: var(--surface);
-    padding: 3.5rem;
-    border: 1px solid transparent;
-    transition: all 0.4s;
-    position: relative;
-    overflow: hidden;
-  }
-  .rest-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transition: transform 0.4s;
-  }
-  .rest-card:hover::before { transform: scaleX(1); }
-  .rest-card:hover { border-color: var(--border); background: #1A161A; }
-  .rest-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 4rem;
-    color: rgba(210,160,60,0.15);
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 1.5rem;
-  }
-  .rest-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    color: var(--white);
-    font-weight: 400;
-    margin-bottom: 1rem;
-  }
-  .rest-type {
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-  }
-  .rest-desc {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-  }
-  .rest-price {
-    display: inline-flex; gap: 0.5rem; align-items: center;
-    font-size: 0.82rem;
-    color: var(--cream);
-  }
-  .rest-price strong {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    color: var(--gold2);
-  }
+/* ===== HIGHLIGHTS ===== */
+.highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.highlight-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.04);padding:2.5rem;transition:all var(--transition);position:relative;overflow:hidden}
+.highlight-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity var(--transition)}
+.highlight-card:hover{border-color:rgba(255,255,255,.08);transform:translateY(-5px);box-shadow:var(--shadow)}
+.highlight-card:hover::before{opacity:1}
+.highlight-icon{font-size:2rem;margin-bottom:1.5rem;display:block}
+.highlight-card h3{font-family:var(--font-display);font-size:1.4rem;font-weight:400;margin-bottom:.75rem}
+.highlight-card p{color:var(--text-muted);font-size:.9rem;line-height:1.7;font-weight:300}
 
-  /* MENU SECTION */
-  .menu {
-    background: var(--bg3);
-    border-top: 1px solid var(--border);
-  }
-  .menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    max-width: 1100px;
-    margin: 3rem auto 0;
-  }
-  .menu-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 3rem;
-    position: relative;
-  }
-  .menu-card-featured {
-    border-color: rgba(210,160,60,0.4);
-  }
-  .menu-card-featured::after {
-    content: 'Empfohlen';
-    position: absolute;
-    top: -1px; right: 2rem;
-    background: var(--gold);
-    color: var(--bg);
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.8rem;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-  }
-  .menu-card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-  }
-  .menu-card-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    color: var(--white);
-    font-weight: 300;
-    margin-bottom: 0.5rem;
-  }
-  .menu-card-price {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
-    color: var(--gold2);
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-  }
-  .menu-card-price span {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--muted);
-  }
-  .menu-courses {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .menu-courses li {
-    display: flex; align-items: flex-start; gap: 0.8rem;
-    font-size: 0.85rem;
-    color: var(--text);
-    line-height: 1.5;
-  }
-  .menu-courses li::before {
-    content: '—';
-    color: var(--gold);
-    flex-shrink: 0;
-  }
+/* ===== ABOUT ===== */
+.about-split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem}
+.about-image{position:relative;aspect-ratio:4/5;overflow:hidden}
+.about-image img{width:100%;height:100%;object-fit:cover;transition:transform var(--transition-slow)}
+.about-image:hover img{transform:scale(1.05)}
+.about-image::after{content:'';position:absolute;inset:0;border:1px solid rgba(255,255,255,.06);pointer-events:none;margin:1rem;transition:margin var(--transition)}
+.about-image:hover::after{margin:.5rem}
+.about-text{padding:2rem 0}
+.about-text p{color:var(--text-muted);margin-bottom:1.5rem;line-height:1.9;font-weight:300}
 
-  /* ÖFFNUNGSZEITEN */
-  .hours {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-  }
-  .hours-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    max-width: 1100px;
-    margin: 0 auto;
-    align-items: start;
-  }
-  .hours-table {
-    margin-top: 2rem;
-  }
-  .hours-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(210,160,60,0.1);
-    font-size: 0.9rem;
-  }
-  .hours-row:last-child { border-bottom: none; }
-  .hours-day { color: var(--muted); letter-spacing: 0.05em; }
-  .hours-time { color: var(--cream); }
-  .closed { color: var(--muted); font-style: italic; }
-  .hours-note-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 2rem;
-    margin-top: 2rem;
-  }
-  .hours-note-box p {
-    font-size: 0.85rem;
-    color: var(--muted);
-    line-height: 1.8;
-  }
+/* ===== PARALLAX QUOTE ===== */
+.parallax-quote{position:relative;padding:8rem 2rem;text-align:center;overflow:hidden}
+.parallax-quote-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1400&q=80') center/cover no-repeat;filter:brightness(.3)}
+.parallax-quote-content{position:relative;max-width:700px;margin:0 auto}
+.parallax-quote-content blockquote{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.5rem);font-weight:300;font-style:italic;line-height:1.5;color:var(--text)}
+.parallax-quote-content cite{display:block;margin-top:1.5rem;font-size:.85rem;color:var(--accent);font-style:normal;letter-spacing:.1em}
 
-  /* CONTACT */
-  .contact {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-  }
-  .contact-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .contact-list {
-    display: flex; flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  .contact-row {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-    align-items: start;
-  }
-  .contact-row:last-child { border-bottom: none; }
-  .contact-row-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding-top: 0.2rem;
-  }
-  .contact-row-value {
-    font-size: 0.95rem;
-    color: var(--cream);
-    line-height: 1.6;
-  }
-  .reserve-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 3rem;
-  }
-  .reserve-panel h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    color: var(--white);
-    font-weight: 300;
-    margin-bottom: 0.5rem;
-  }
-  .reserve-panel p {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 2.5rem;
-  }
-  .btn-primary {
-    background: var(--gold);
-    color: var(--bg);
-    padding: 1rem 2.5rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s;
-    display: block;
-    text-align: center;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .btn-primary:hover { background: var(--gold2); }
-  .btn-ghost {
-    border: 1px solid rgba(200,191,168,0.25);
-    color: var(--cream);
-    padding: 1rem 2.5rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    margin-top: 0.8rem;
-    transition: all 0.3s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .btn-ghost:hover { border-color: var(--gold); color: var(--gold2); }
+/* ===== MENU ===== */
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
+.menu-category h3{font-family:var(--font-display);font-size:1.8rem;font-weight:400;margin-bottom:2rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.03);transition:border-color var(--transition-fast)}
+.menu-item:hover{border-bottom-color:rgba(255,255,255,.08)}
+.menu-item-info{flex:1;padding-right:1rem}
+.menu-item-name{font-family:var(--font-display);font-size:1.1rem;font-weight:400;margin-bottom:.2rem}
+.menu-item-desc{font-size:.8rem;color:var(--text-muted);font-weight:300}
+.menu-item-price{font-family:var(--font-display);font-size:1.1rem;color:var(--accent);white-space:nowrap}
+.menu-note{text-align:center;margin-top:3rem;color:var(--text-muted);font-size:.85rem;font-style:italic}
 
-  /* FOOTER */
-  footer {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    padding: 4rem 5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
-  .footer-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: var(--gold2);
-    letter-spacing: 0.2em;
-  }
-  .footer-copy {
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-  .michelin-badge {
-    display: flex; align-items: center; gap: 0.6rem;
-    background: rgba(210,160,60,0.08);
-    border: 1px solid rgba(210,160,60,0.2);
-    padding: 0.5rem 1.2rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    color: var(--gold2);
-  }
+/* ===== GALLERY ===== */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:3rem}
+.gallery-item{position:relative;aspect-ratio:1;overflow:hidden;cursor:pointer}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform var(--transition-slow);filter:brightness(.85)}
+.gallery-item:hover img{transform:scale(1.1);filter:brightness(1)}
+.gallery-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,10,10,.5) 100%);opacity:0;transition:opacity var(--transition)}
+.gallery-item:hover::after{opacity:1}
+.gallery-item:first-child{grid-column:span 2;aspect-ratio:2/1}
 
-  @media (max-width: 900px) {
-    nav { padding: 1.5rem 1.5rem; }
-    nav.scrolled { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    section { padding: 5rem 1.5rem; }
-    .hero-content { padding: 0 1.5rem; }
-    .hero-title { font-size: 4rem; }
-    .hero-meta { flex-direction: column; gap: 2rem; }
-    .phil-grid, .menu-grid, .hours-layout, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .rest-grid { grid-template-columns: 1fr; }
-    footer { padding: 2.5rem 1.5rem; flex-direction: column; text-align: center; }
-  }
+/* ===== TESTIMONIALS ===== */
+.testimonials{margin-top:4rem;display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+.testimonial-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.04);padding:2rem;position:relative}
+.testimonial-card::before{content:'“';font-family:var(--font-display);font-size:4rem;color:var(--accent);opacity:.3;position:absolute;top:.5rem;left:1rem;line-height:1}
+.testimonial-card p{color:var(--text-muted);font-size:.9rem;line-height:1.7;font-style:italic;padding-top:1.5rem}
+.testimonial-card cite{display:block;margin-top:1rem;font-size:.8rem;color:var(--accent);font-style:normal;letter-spacing:.05em}
+
+/* ===== CONTACT ===== */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem}
+.contact-info{display:flex;flex-direction:column;gap:2rem}
+.contact-block{padding:1.5rem;background:var(--bg-card);border:1px solid rgba(255,255,255,.04);transition:border-color var(--transition-fast)}
+.contact-block:hover{border-color:rgba(255,255,255,.08)}
+.contact-block h3{font-family:var(--font-display);font-size:1.2rem;font-weight:400;margin-bottom:.5rem;color:var(--accent)}
+.contact-block p{color:var(--text-muted);font-size:.9rem;line-height:1.8;font-weight:300}
+.contact-map{aspect-ratio:1;border:1px solid rgba(255,255,255,.04);overflow:hidden}
+.contact-map iframe{width:100%;height:100%;border:0;filter:grayscale(1) invert(1) contrast(.8) brightness(.6);opacity:.7;transition:opacity var(--transition)}
+.contact-map:hover iframe{opacity:.9}
+
+/* ===== CTA BANNER ===== */
+.cta-banner{background:var(--bg-card);border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);padding:5rem 2rem;text-align:center}
+.cta-banner h2{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;margin-bottom:1rem}
+.cta-banner p{color:var(--text-muted);max-width:500px;margin:0 auto 2rem;font-weight:300}
+.cta-banner .hero-cta{margin:0 auto}
+
+/* ===== FOOTER ===== */
+.footer{background:var(--bg);border-top:1px solid rgba(255,255,255,.04);padding:4rem 2rem 2rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem}
+.footer-brand{font-family:var(--font-display);font-size:1.8rem;font-weight:300;margin-bottom:1rem}
+.footer-brand span{color:var(--accent)}
+.footer-desc{color:var(--text-muted);font-size:.85rem;line-height:1.7;max-width:300px;font-weight:300}
+.footer-col h4{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;font-weight:600;font-family:var(--font-body)}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul a{color:var(--text-muted);font-size:.85rem;transition:color var(--transition-fast)}
+.footer-col ul a:hover{color:var(--accent)}
+.footer-bottom{max-width:1200px;margin:3rem auto 0;padding-top:2rem;border-top:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{color:var(--text-muted);font-size:.75rem}
+.footer-bottom-links{display:flex;gap:1.5rem;list-style:none}
+.footer-bottom-links a{color:var(--text-muted);font-size:.75rem}
+.footer-bottom-links a:hover{color:var(--accent)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:968px){
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .highlights-grid{grid-template-columns:1fr}
+  .about-split,.menu-grid,.contact-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-item:first-child{grid-column:span 1;aspect-ratio:1}
+  .testimonials{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+  .section{padding:4rem 1.5rem}
+  .parallax-quote{padding:5rem 1.5rem}
+}
+@media(max-width:480px){
+  .gallery-grid{grid-template-columns:1fr}
+  .nav{padding:1rem 1.5rem}
+  .hero-title{font-size:2.5rem}
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-delay-1{transition-delay:.1s}
+.fade-in-delay-2{transition-delay:.2s}
+.fade-in-delay-3{transition-delay:.3s}
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div>
-    <a href="#" class="nav-logo">TANTRIS</a>
-    <div class="nav-tagline">Maison Culinaire · München</div>
-  </div>
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo"><span>Tantris</span></a>
   <ul class="nav-links">
-    <li><a href="#philosophy">Philosophie</a></li>
-    <li><a href="#restaurants">Restaurants</a></li>
-    <li><a href="#menu">Menüs</a></li>
-    <li><a href="#reservierung">Reservierung</a></li>
+    <li><a href="#highlights">Highlights</a></li>
+    <li><a href="#about">Über uns</a></li>
+    <li><a href="#menu">Speisekarte</a></li>
+    <li><a href="#gallery">Galerie</a></li>
+    <li><a href="#contact">Kontakt</a></li>
   </ul>
-  <a href="tel:+498936195900" class="nav-cta">Reservieren</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#highlights" onclick="closeMobileNav()">Highlights</a>
+  <a href="#about" onclick="closeMobileNav()">Über uns</a>
+  <a href="#menu" onclick="closeMobileNav()">Speisekarte</a>
+  <a href="#gallery" onclick="closeMobileNav()">Galerie</a>
+  <a href="#contact" onclick="closeMobileNav()">Kontakt</a>
+</div>
 
-<!-- HERO -->
+<!-- Hero -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid-bg"></div>
-  <div class="hero-watermark">T</div>
-
+  <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-stars">
-      <span class="star">★</span>
-      <span class="star">★</span>
-      <span class="star-label">Michelin · Zwei Sterne · München seit 1971</span>
+    <p class="hero-sub">München — Schwabing</p>
+    <h1 class="hero-title"><em>Tantris</em></h1>
+    <p class="hero-desc">Tantris Maison Culinaire — Deutschlands legendärste Adresse für Gourmetküche. Seit 1971 vereint das Tantris architektonische Ikone mit kulinarischer Perfektion.</p>
+    <a href="#contact" class="hero-cta">Reservierung</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Entdecken</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- Highlights -->
+<section class="section" id="highlights">
+  <div class="section-inner section-center">
+    <p class="section-label">Unsere Highlights</p>
+    <h2 class="section-title">Was uns auszeichnet</h2>
+    <div class="divider"></div>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon">&#9733;</div>
+        <h3>Gourmetrestaurant</h3>
+        <p>Das Tantris Gourmetrestaurant steht für höchste kulinarische Kunst. Mehrfach mit Michelin-Sternen ausgezeichnet, setzt es seit über 50 Jahren Maßstäbe.</p>
+      </div>
+<div class="highlight-card">
+        <div class="highlight-icon">&#127860;</div>
+        <h3>Tantris DNA</h3>
+        <p>Das Restaurant Tantris DNA bietet eine modernere Interpretation der Tantris-Philosophie — kreativ, überraschend und zugänglicher.</p>
+      </div>
+<div class="highlight-card">
+        <div class="highlight-icon">&#127864;</div>
+        <h3>Bar Tantris</h3>
+        <p>Die Bar Tantris ist der perfekte Ort für einen Aperitif oder Digestif — mit einer Cocktailkarte, die ihresgleichen sucht.</p>
+      </div>
+
     </div>
-    <h1 class="hero-title">TAN<span class="accent">TRIS</span></h1>
-    <div class="hero-meta">
-      <p class="hero-meta-desc">
-        Seit über fünfzig Jahren ist das Tantris eine Institution der französischen Haute Cuisine in Deutschland. Küchenchef Benjamin Chmura führt das Erbe fort — mit Präzision, Saisonalität und tiefer Respekt vor dem Produkt.
-      </p>
-      <div class="hero-meta-info">
-        <div class="hero-info-item">
-          <div class="hero-info-num">★★</div>
-          <div class="hero-info-label">Michelin Sterne</div>
-        </div>
-        <div class="hero-info-item">
-          <div class="hero-info-num">1971</div>
-          <div class="hero-info-label">Gegründet</div>
-        </div>
-        <div class="hero-info-item">
-          <div class="hero-info-num">€150+</div>
-          <div class="hero-info-label">Menü ab</div>
-        </div>
+  </div>
+</section>
+
+<!-- Parallax Quote -->
+<div class="parallax-quote">
+  <div class="parallax-quote-bg"></div>
+  <div class="parallax-quote-content">
+    <blockquote>Kulinarik ist die Kunst, aus den besten Zutaten unvergessliche Momente zu schaffen.</blockquote>
+    <cite>— Tantris</cite>
+  </div>
+</div>
+
+<!-- About -->
+<section class="section" id="about" style="background:var(--bg-light)">
+  <div class="section-inner">
+    <div class="about-split">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="Tantris Interieur" loading="lazy">
+      </div>
+      <div class="about-text">
+        <p class="section-label">Über uns</p>
+        <h2 class="section-title">Unsere Geschichte</h2>
+        <div class="divider"></div>
+                <p>Das Tantris ist seit seiner Eröffnung 1971 eine Ikone der deutschen Gastronomie. Die legendäre Architektur mit ihrer markanten Fassade in Orange und Braun ist ebenso berühmt wie die Küche, die hier serviert wird.</p>
+        <p>Als Tantris Maison Culinaire vereint das Haus heute drei Konzepte: Das Gourmetrestaurant Tantris, das Restaurant Tantris DNA und die Bar Tantris. Jedes für sich ein Erlebnis auf höchstem Niveau.</p>
+        <p>Generationen von Spitzenköchen haben das Tantris geprägt — von Eckart Witzigmann über Heinz Winkler bis heute. Das Tantris bleibt, was es immer war: Deutschlands Top-Adresse für Gourmetküche.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PHILOSOPHIE -->
-<section class="philosophy" id="philosophy">
-  <div class="phil-grid">
-    <div>
-      <div class="section-tag">Philosophie</div>
-      <h2 class="section-title">Französische <span class="italic">Haute Cuisine</span><br>im Herzen Münchens</h2>
-      <div class="divider"></div>
-      <p class="section-sub">
-        Das Tantris ist kein Restaurant — es ist eine Maison Culinaire. Drei Restaurants, eine Bar, eine gemeinsame Seele: die kompromisslose Suche nach dem perfekten Geschmack.
-      </p>
-      <div class="phil-quote">
-        „Kochen ist die älteste und schönste Kunst der Gastfreundschaft."
-      </div>
-    </div>
-    <div class="chef-card">
-      <div class="chef-title">Küchenchef</div>
-      <div class="chef-name">Benjamin Chmura</div>
-      <p class="chef-desc">
-        Benjamin Chmura übernahm die Leitung der Tantris-Küche und führte die kulinarische Linie mit klassisch-französischer Präzision weiter. Seine Menüs folgen den Jahreszeiten und dem besten verfügbaren Produkt — regional, international, immer außergewöhnlich.
-      </p>
-      <div class="awards">
-        <div class="award-badge">★★ Michelin</div>
-        <div class="award-badge">4 Gabeln Gault&Millau</div>
-        <div class="award-badge">Top 50 Deutschland</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RESTAURANTS -->
-<section class="restaurants" id="restaurants">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-tag">Drei Konzepte</div>
-    <h2 class="section-title">Die <span class="italic">Maison Culinaire</span></h2>
-    <div class="rest-grid">
-      <div class="rest-card">
-        <div class="rest-num">01</div>
-        <div class="rest-type">Fine Dining</div>
-        <div class="rest-name">Restaurant Tantris</div>
-        <p class="rest-desc">
-          Das Flaggschiff der Maison. Großes Degustationsmenü mit klassisch-französischer Linie, außergewöhnliche Weinbegleitung, ikonisches Design aus den 1970er Jahren — unverändert, bewusst.
-        </p>
-        <div class="rest-price">Menü ab <strong>€ 220</strong> <span>pro Person</span></div>
-      </div>
-      <div class="rest-card">
-        <div class="rest-num">02</div>
-        <div class="rest-type">Bistro Fine Dining</div>
-        <div class="rest-name">Tantris DNA</div>
-        <p class="rest-desc">
-          Lockerere Atmosphäre, gleiche Produktqualität. Das DNA verkörpert die Tantris-Seele in einem zugänglicheren Rahmen — für Mittag wie Abend, für Kenner wie Neulinge.
-        </p>
-        <div class="rest-price">Menü ab <strong>€ 150</strong> <span>pro Person</span></div>
-      </div>
-      <div class="rest-card">
-        <div class="rest-num">03</div>
-        <div class="rest-type">Lunch & Events</div>
-        <div class="rest-name">Tantris à la Maison</div>
-        <p class="rest-desc">
-          Mittagessen in der Tantris-Maison: leichter, saisonal, zugänglich. Ideal für Business-Lunches, Sonderveranstaltungen und kulinarische Entdeckungen ohne Voranmeldung.
-        </p>
-        <div class="rest-price">Menü ab <strong>€ 95</strong> <span>pro Person</span></div>
-      </div>
-      <div class="rest-card">
-        <div class="rest-num">04</div>
-        <div class="rest-type">Cocktails & Wein</div>
-        <div class="rest-name">Bar Tantris</div>
-        <p class="rest-desc">
-          Die Bar Tantris bietet außergewöhnliche Cocktails, eine tiefe Weinkarte und kleine kulinarische Begleitung in der ikonischen Atmosphäre des Hauses — täglich ab 18 Uhr.
-        </p>
-        <div class="rest-price">À la carte</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MENÜS -->
-<section class="menu" id="menu">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-tag">Aktuell</div>
-    <h2 class="section-title">Saisonale <span class="italic">Degustationsmenüs</span></h2>
+<!-- Menu -->
+<section class="section" id="menu">
+  <div class="section-inner">
+    <p class="section-label">Speisekarte</p>
+    <h2 class="section-title">Kulinarische Kompositionen</h2>
+    <div class="divider"></div>
+    <p class="section-text">Unsere Gerichte wechseln saisonal und werden stets mit den frischesten Zutaten zubereitet. Hier ein Auszug aus unserer Karte.</p>
     <div class="menu-grid">
-      <div class="menu-card">
-        <div class="menu-card-title">Tantris DNA</div>
-        <div class="menu-card-name">Menu Jeune</div>
-        <div class="menu-card-price">€ 150 <span>/ Person</span></div>
-        <ul class="menu-courses">
-          <li>Amuse-Bouche nach Saison</li>
-          <li>Crème de Homard, Kaviar-Espuma</li>
-          <li>Bretonische Seezunge, Beurre Blanc</li>
-          <li>Reh aus dem Bayerischen Wald, Trüffelkruste</li>
-          <li>Plateau de Fromages Affinés</li>
-          <li>Petit Fours & Mignardises</li>
-        </ul>
+      <div class="menu-category">
+        <h3>Vorspeisen</h3>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Périgord-Trüffel</div>
+            <div class="menu-item-desc">mit Sellerie und Nussbutter</div>
+          </div>
+          <span class="menu-item-price">€ 68</span>
+        </div>
+<div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Bretonische Auster</div>
+            <div class="menu-item-desc">mit Champagner-Schaum und Kaviar</div>
+          </div>
+          <span class="menu-item-price">€ 52</span>
+        </div>
+<div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Wagyu Tatar</div>
+            <div class="menu-item-desc">mit geräuchtem Eigelb und Ponzu</div>
+          </div>
+          <span class="menu-item-price">€ 58</span>
+        </div>
+<div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Langoustine</div>
+            <div class="menu-item-desc">mit Mango, Chili und Koriander</div>
+          </div>
+          <span class="menu-item-price">€ 54</span>
+        </div>
+
       </div>
-      <div class="menu-card menu-card-featured">
-        <div class="menu-card-title">Restaurant Tantris</div>
-        <div class="menu-card-name">Grand Menu</div>
-        <div class="menu-card-price">€ 345 <span>/ Person</span></div>
-        <ul class="menu-courses">
-          <li>Amuse-Bouche — Saisonale Eröffnung</li>
-          <li>Beluga Kaviar, Blini, Sauerrahm</li>
-          <li>Jakobsmuschel, Schwarze Butter, Kapern</li>
-          <li>Langusten-Bisque, Cognac-Schaum</li>
-          <li>Filet de Bœuf Wagyu, Sauce Périgueux</li>
-          <li>Auswahl Affinierter Käse</li>
-          <li>Dessert nach Saison, Petit Fours</li>
-        </ul>
+      <div class="menu-category">
+        <h3>Hauptgerichte</h3>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Bretonischer Steinbutt</div>
+            <div class="menu-item-desc">mit Champagnersauce und Morcheln</div>
+          </div>
+          <span class="menu-item-price">€ 92</span>
+        </div>
+<div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Wagyu-Rind A5</div>
+            <div class="menu-item-desc">mit Périgord-Trüffel und Kartoffelmousseline</div>
+          </div>
+          <span class="menu-item-price">€ 128</span>
+        </div>
+<div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Rehrücken aus dem Bayerischen Wald</div>
+            <div class="menu-item-desc">mit Preiselbeeren und Serviettenknödel</div>
+          </div>
+          <span class="menu-item-price">€ 76</span>
+        </div>
+<div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-name">Grand Menü</div>
+            <div class="menu-item-desc">8 Gänge Signatur-Menü</div>
+          </div>
+          <span class="menu-item-price">€ ab 295</span>
+        </div>
+
+      </div>
+    </div>
+    <p class="menu-note">Alle Preise in Euro inkl. MwSt. Änderungen vorbehalten. Fragen Sie unser Team nach aktuellen Empfehlungen und Allergenen.</p>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="section" id="gallery" style="background:var(--bg-light)">
+  <div class="section-inner">
+    <p class="section-label">Impressionen</p>
+    <h2 class="section-title">Galerie</h2>
+    <div class="divider"></div>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Restaurant Interieur" loading="lazy"></div>
+<div class="gallery-item"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Kulinarisches Gericht" loading="lazy"></div>
+<div class="gallery-item"><img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&q=80" alt="Weinbegleitung" loading="lazy"></div>
+<div class="gallery-item"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Bar Bereich" loading="lazy"></div>
+<div class="gallery-item"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80" alt="Gesellschaft" loading="lazy"></div>
+<div class="gallery-item"><img src="https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=600&q=80" alt="Gericht Detail" loading="lazy"></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section">
+  <div class="section-inner section-center">
+    <p class="section-label">Stimmen</p>
+    <h2 class="section-title">Was unsere Gäste sagen</h2>
+    <div class="divider"></div>
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <p>Ein unvergessliches Erlebnis. Die Küche, der Service, die Atmosphäre — alles stimmte bis ins kleinste Detail. Wir kommen definitiv wieder.</p>
+        <cite>— Gast bei Tantris</cite>
+      </div>
+      <div class="testimonial-card">
+        <p>Selten so gut gegessen. Jeder Gang war ein kleines Kunstwerk. Die Weinbegleitung war perfekt abgestimmt. Absolute Empfehlung!</p>
+        <cite>— Gast bei Tantris</cite>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ÖFFNUNGSZEITEN -->
-<section class="hours" id="hours">
-  <div class="hours-layout">
-    <div>
-      <div class="section-tag">Öffnungszeiten</div>
-      <h2 class="section-title">Mittwoch<br><span class="italic">bis Samstag</span></h2>
-      <div class="divider"></div>
-      <p class="section-sub">Alle Restaurants der Tantris Maison Culinaire sind Mittwoch bis Samstag geöffnet. Reservierungen werden dringend empfohlen.</p>
-      <div class="hours-note-box">
-        <p>Für Reservierungen stehen wir Ihnen von Montag bis Samstag zwischen 9:00 und 18:00 Uhr telefonisch zur Verfügung. E-Mail-Anfragen werden innerhalb von 24 Stunden beantwortet.</p>
+
+<!-- Awards & Recognition -->
+<section class="section" style="background:var(--bg-light)">
+  <div class="section-inner section-center">
+    <p class="section-label">Auszeichnungen</p>
+    <h2 class="section-title">Anerkennung &amp; Qualität</h2>
+    <div class="divider"></div>
+    <p class="section-text">Unsere Leidenschaft für Perfektion wurde vielfach ausgezeichnet. Diese Anerkennungen motivieren uns täglich, noch besser zu werden.</p>
+    <div class="highlights-grid" style="margin-top:3rem">
+      <div class="highlight-card">
+        <div class="highlight-icon">&#127942;</div>
+        <h3>Ausgezeichnete Qualität</h3>
+        <p>Von renommierten Restaurantführern und Kritikern anerkannt. Unsere Küche steht für höchste Standards und kompromisslose Qualität bei jeder einzelnen Zubereitung.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">&#127793;</div>
+        <h3>Nachhaltige Küche</h3>
+        <p>Wir setzen auf regionale und saisonale Produkte von ausgewählten Erzeugern. Nachhaltigkeit ist für uns kein Trend, sondern Überzeugung und tägliche Praxis.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">&#128150;</div>
+        <h3>Gästezufriedenheit</h3>
+        <p>Das Lächeln unserer Gäste ist unsere größte Auszeichnung. Über 95% unserer Besucher empfehlen uns weiter — und viele werden zu Stammgästen auf Lebenszeit.</p>
       </div>
     </div>
-    <div>
-      <div class="hours-table">
-        <div class="hours-row">
-          <span class="hours-day">Montag</span>
-          <span class="closed">Geschlossen</span>
+  </div>
+</section>
+
+<!-- Team Section -->
+<section class="section">
+  <div class="section-inner">
+    <div class="about-split" style="margin-top:0">
+      <div class="about-text">
+        <p class="section-label">Unser Team</p>
+        <h2 class="section-title">Die Menschen hinter dem Erlebnis</h2>
+        <div class="divider"></div>
+        <p>Hinter jedem großartigen Gericht steht ein engagiertes Team von Profis, die ihre Leidenschaft zum Beruf gemacht haben. Unsere Köche, Sommeliers und Service-Mitarbeiter arbeiten Hand in Hand, um Ihnen ein unvergessliches Erlebnis zu bieten.</p>
+        <p>Von der sorgfältigen Auswahl der Zutaten über die kreative Zubereitung in der Küche bis hin zum aufmerksamen Service am Tisch — jedes Detail zählt. Unser Team vereint jahrelange Erfahrung mit frischer Kreativität und aufrichtiger Gastfreundschaft.</p>
+        <p>Wir glauben daran, dass wahre Gastronomie ein Zusammenspiel aus Handwerk, Herzlichkeit und der unerschütterlichen Liebe zum Detail ist. Jeder einzelne Mitarbeiter trägt dazu bei, dass Ihr Besuch bei uns zu etwas Besonderem wird und unvergesslich bleibt.</p>
+      </div>
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80" alt="Unser Küchenteam" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Philosophy Section -->
+<section class="section" style="background:var(--bg-light)">
+  <div class="section-inner section-center">
+    <p class="section-label">Philosophie</p>
+    <h2 class="section-title">Unsere Werte</h2>
+    <div class="divider"></div>
+    <div class="highlights-grid" style="margin-top:3rem">
+      <div class="highlight-card">
+        <div class="highlight-icon">&#127860;</div>
+        <h3>Handwerk &amp; Tradition</h3>
+        <p>Wir ehren die großen Traditionen der Kochkunst und verbinden sie mit zeitgemäßen Techniken. Jedes Gericht wird mit handwerklicher Präzision und tiefstem Respekt vor den Zutaten zubereitet. Die Verbindung von Altem und Neuem ist der Kern unserer kulinarischen Identität.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">&#127807;</div>
+        <h3>Saisonalität &amp; Frische</h3>
+        <p>Unsere Speisekarte folgt dem Rhythmus der Natur. Wir beziehen unsere Zutaten von ausgewählten regionalen Erzeugern und internationalen Spezialisten, die dieselbe Leidenschaft für Qualität teilen. So garantieren wir stets die bestmögliche Frische und den intensivsten Geschmack.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">&#10024;</div>
+        <h3>Gastfreundschaft</h3>
+        <p>Bei uns sind Sie nicht nur Gast — Sie sind Teil eines Erlebnisses. Unser Service ist aufmerksam ohne aufdringlich zu sein, kompetent und herzlich zugleich. Wir möchten, dass Sie sich bei uns wie zu Hause fühlen, nur besser — verwöhnt, inspiriert und vollkommen zufrieden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Events Section -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label">Veranstaltungen</p>
+    <h2 class="section-title">Private Events &amp; besondere Anlässe</h2>
+    <div class="divider"></div>
+    <p class="section-text">Ob Geburtstag, Firmenevent, Hochzeit oder Jubiläum — wir gestalten Ihren besonderen Anlass zu einem unvergesslichen Erlebnis. Unser erfahrenes Event-Team kümmert sich um jedes Detail.</p>
+    <div class="highlights-grid" style="margin-top:3rem">
+      <div class="highlight-card">
+        <div class="highlight-icon">&#127881;</div>
+        <h3>Private Dinner</h3>
+        <p>Exklusive Abende in privatem Rahmen mit individuell zusammengestelltem Menü. Wir erstellen Ihnen ein maßgeschneidertes Konzept, das Ihren Vorstellungen in jeder Hinsicht entspricht und Ihre Gäste begeistert.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">&#128188;</div>
+        <h3>Firmenevents</h3>
+        <p>Beeindrucken Sie Ihre Geschäftspartner und Mitarbeiter mit einem kulinarischen Event der Extraklasse. Von der Produktpräsentation bis zum Jahresabschluss — wir schaffen den perfekten Rahmen für Ihren geschäftlichen Erfolg.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">&#128141;</div>
+        <h3>Besondere Anlässe</h3>
+        <p>Hochzeiten, Verlobungen, runde Geburtstage — die wichtigsten Momente im Leben verdienen einen besonderen Rahmen. Lassen Sie uns gemeinsam einen unvergesslichen Tag planen, der noch lange in Erinnerung bleibt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Seasonal Menu Teaser -->
+<section class="section" style="background:var(--bg-light)">
+  <div class="section-inner">
+    <div class="about-split" style="margin-top:0">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Saisonale Küche" loading="lazy">
+      </div>
+      <div class="about-text">
+        <p class="section-label">Saison</p>
+        <h2 class="section-title">Aktuelle Saison-Highlights</h2>
+        <div class="divider"></div>
+        <p>Der Frühling bringt frische Aromen und neue Inspirationen auf unsere Karte. Entdecken Sie unsere aktuellen Saison-Highlights: von zartem Spargel über duftenden Bärlauch bis hin zu den ersten Erdbeeren des Jahres — alles frisch von ausgesuchten regionalen Erzeugern.</p>
+        <p>Unser Küchenchef lässt sich von den besten Produkten der Saison inspirieren und kreiert daraus Gerichte, die den Geschmack des Frühlings perfekt einfangen. Jedes Gericht erzählt eine Geschichte von Terroir, Handwerk und Leidenschaft für das Kochen.</p>
+        <p>Fragen Sie bei Ihrer Reservierung nach unseren aktuellen Empfehlungen und dem saisonalen Degustationsmenü. Wir beraten Sie gerne persönlich und stellen Ihnen ein individuelles Menü zusammen, das genau zu Ihrem Anlass und Ihren Vorlieben passt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Wine & Drinks Section -->
+<section class="section">
+  <div class="section-inner">
+    <div class="about-split" style="margin-top:0">
+      <div class="about-text">
+        <p class="section-label">Weinkarte &amp; Getränke</p>
+        <h2 class="section-title">Erlesene Tropfen für jeden Anlass</h2>
+        <div class="divider"></div>
+        <p>Unsere Weinkarte ist das Ergebnis jahrelanger Leidenschaft und sorgfältiger Auswahl. Von kraftvollen Rotweinen aus dem Bordeaux über elegante Burgunderweine bis hin zu spritzigen Rieslingen von der Mosel — wir bieten für jeden Geschmack und jeden Anlass den perfekten Tropfen. Unsere Sommeliers beraten Sie gerne persönlich und finden die ideale Begleitung zu Ihrem Menü.</p>
+        <p>Neben unserer umfangreichen Weinkarte bieten wir auch eine exklusive Auswahl an Champagnern, Digestifs und alkoholfreien Kreationen. Unsere hausgemachten Limonaden und die sorgfältig ausgewählten Mineralwasser runden das Getränkeangebot ab. Fragen Sie nach unserer aktuellen Empfehlung des Hauses — unsere Sommeliers überraschen Sie gerne mit einem besonderen Tropfen, der perfekt zur Saison und zu Ihrer Menüauswahl passt.</p>
+        <p>Für besondere Anlässe bieten wir auch eine individuelle Weinbegleitung an: Zu jedem Gang Ihres Menüs wählen unsere Experten den passenden Wein aus und erklären Ihnen die Besonderheiten jedes einzelnen Tropfens. Ein Erlebnis, das Ihren Gaumen auf eine ganz eigene Reise mitnimmt und die Aromen jedes Gerichts auf einzigartige Weise unterstreicht und ergänzt.</p>
+      </div>
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" alt="Weinauswahl" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Location & Atmosphere -->
+<section class="section" style="background:var(--bg-light)">
+  <div class="section-inner section-center">
+    <p class="section-label">Atmosphäre</p>
+    <h2 class="section-title">Ein Ort, der alle Sinne anspricht</h2>
+    <div class="divider"></div>
+    <p class="section-text" style="margin:0 auto 3rem">Die Atmosphäre eines Restaurants ist ebenso wichtig wie die Küche selbst. Bei uns haben wir einen Raum geschaffen, der Eleganz und Behaglichkeit vereint — ein Ort, an dem Sie den Alltag hinter sich lassen und den Moment genießen können.</p>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon">&#128161;</div>
+        <h3>Stimmungsvolles Licht</h3>
+        <p>Warmes, gedämpftes Licht schafft eine intime Atmosphäre, die zum Verweilen einlädt. Jeder Tisch wird individuell beleuchtet, um eine private und zugleich einladende Stimmung zu erzeugen, die das Dining-Erlebnis perfekt unterstreicht und Ihre Sinne anspricht.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">&#127925;</div>
+        <h3>Dezente Klänge</h3>
+        <p>Eine sorgfältig zusammengestellte musikalische Untermalung begleitet Ihren Abend dezent und stilvoll. Die Lautstärke ist so gewählt, dass Sie sich in Ruhe unterhalten können, während die Musik die besondere Atmosphäre unseres Hauses unterstreicht und verstärkt.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">&#127803;</div>
+        <h3>Edles Design</h3>
+        <p>Von der Einrichtung über das Geschirr bis hin zu den Servietten — jedes Detail ist mit Sorgfalt ausgewählt. Hochwertige Materialien, zeitloses Design und eine harmonische Farbgebung schaffen ein Ambiente, das die kulinarischen Kreationen perfekt in Szene setzt und begleitet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label">Häufig gestellte Fragen</p>
+    <h2 class="section-title">Gut zu wissen</h2>
+    <div class="divider"></div>
+    <div class="menu-grid" style="margin-top:2rem">
+      <div class="menu-category" style="border:none">
+        <div class="menu-item" style="flex-direction:column;align-items:flex-start;gap:.5rem;padding:1.5rem 0">
+          <div class="menu-item-name" style="color:var(--accent)">Ist eine Reservierung erforderlich?</div>
+          <div class="menu-item-desc" style="font-size:.9rem;line-height:1.7">Wir empfehlen dringend eine Reservierung, insbesondere am Wochenende und an Feiertagen. So können wir sicherstellen, dass Ihr Tisch bereitsteht und wir alles für Ihren perfekten Abend vorbereiten können. Kontaktieren Sie uns telefonisch oder per E-Mail für Ihre Reservierung.</div>
         </div>
-        <div class="hours-row">
-          <span class="hours-day">Dienstag</span>
-          <span class="closed">Geschlossen</span>
+        <div class="menu-item" style="flex-direction:column;align-items:flex-start;gap:.5rem;padding:1.5rem 0">
+          <div class="menu-item-name" style="color:var(--accent)">Gibt es einen Dresscode?</div>
+          <div class="menu-item-desc" style="font-size:.9rem;line-height:1.7">Wir bitten um gepflegte, elegante Kleidung, die dem Anlass und unserem Ambiente entspricht. Smart Casual ist in den meisten Bereichen willkommen. Für besondere Anlässe empfehlen wir Business-Attire oder elegantere Garderobe, die den besonderen Charakter Ihres Abends unterstreicht.</div>
         </div>
-        <div class="hours-row">
-          <span class="hours-day">Mittwoch</span>
-          <span class="hours-time">12:00 – 16:00 & 18:30 – 00:00</span>
+        <div class="menu-item" style="flex-direction:column;align-items:flex-start;gap:.5rem;padding:1.5rem 0">
+          <div class="menu-item-name" style="color:var(--accent)">Werden Allergien berücksichtigt?</div>
+          <div class="menu-item-desc" style="font-size:.9rem;line-height:1.7">Selbstverständlich. Bitte teilen Sie uns bei Ihrer Reservierung Allergien und Unverträglichkeiten mit. Unser Küchenteam erstellt Ihnen gerne ein angepasstes Menü, das Ihre Bedürfnisse berücksichtigt, ohne Kompromisse bei Geschmack und Qualität einzugehen.</div>
         </div>
-        <div class="hours-row">
-          <span class="hours-day">Donnerstag</span>
-          <span class="hours-time">12:00 – 16:00 & 18:30 – 00:00</span>
+      </div>
+      <div class="menu-category" style="border:none">
+        <div class="menu-item" style="flex-direction:column;align-items:flex-start;gap:.5rem;padding:1.5rem 0">
+          <div class="menu-item-name" style="color:var(--accent)">Gibt es Parkmöglichkeiten?</div>
+          <div class="menu-item-desc" style="font-size:.9rem;line-height:1.7">In unmittelbarer Nähe finden Sie ausreichend Parkmöglichkeiten. Fragen Sie bei Ihrer Reservierung nach Details zu Parkservice oder nahegelegenen Parkhäusern, um eine stressfreie Anreise zu gewährleisten und Ihren Abend entspannt zu beginnen.</div>
         </div>
-        <div class="hours-row">
-          <span class="hours-day">Freitag</span>
-          <span class="hours-time">12:00 – 16:00 & 18:30 – 00:00</span>
+        <div class="menu-item" style="flex-direction:column;align-items:flex-start;gap:.5rem;padding:1.5rem 0">
+          <div class="menu-item-name" style="color:var(--accent)">Kann man Gutscheine kaufen?</div>
+          <div class="menu-item-desc" style="font-size:.9rem;line-height:1.7">Ja, wir bieten elegante Geschenkgutscheine in verschiedenen Werten an — das perfekte Geschenk für jeden Anlass. Ob zum Geburtstag, Jubiläum oder einfach als besondere Überraschung: Ein Gutschein für ein kulinarisches Erlebnis in unserem Haus ist immer willkommen.</div>
         </div>
-        <div class="hours-row">
-          <span class="hours-day">Samstag</span>
-          <span class="hours-time">12:00 – 16:00 & 18:30 – 00:00</span>
-        </div>
-        <div class="hours-row">
-          <span class="hours-day">Sonntag</span>
-          <span class="closed">Geschlossen</span>
+        <div class="menu-item" style="flex-direction:column;align-items:flex-start;gap:.5rem;padding:1.5rem 0">
+          <div class="menu-item-name" style="color:var(--accent)">Sind Kinder willkommen?</div>
+          <div class="menu-item-desc" style="font-size:.9rem;line-height:1.7">Kinder sind bei uns herzlich willkommen. Auf Wunsch erstellen wir gerne ein kindgerechtes Menü. Bitte informieren Sie uns bei der Reservierung, damit wir alles für Ihren Besuch mit der ganzen Familie optimal vorbereiten und einen geeigneten Tisch reservieren können.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- KONTAKT -->
-<section class="contact" id="reservierung">
-  <div class="contact-layout">
-    <div>
-      <div class="section-tag">Kontakt</div>
-      <h2 class="section-title">Tisch<br><span class="italic">reservieren</span></h2>
-      <div class="divider"></div>
-      <div class="contact-list">
-        <div class="contact-row">
-          <div class="contact-row-label">Adresse</div>
-          <div class="contact-row-value">Johann-Fichte-Straße 7<br>80805 München</div>
-        </div>
-        <div class="contact-row">
-          <div class="contact-row-label">Telefon</div>
-          <div class="contact-row-value">+49 89 36 19 59-0</div>
-        </div>
-        <div class="contact-row">
-          <div class="contact-row-label">E-Mail</div>
-          <div class="contact-row-value">contact@tantris.de</div>
-        </div>
-        <div class="contact-row">
-          <div class="contact-row-label">Anfahrt</div>
-          <div class="contact-row-value">U-Bahn Münchener Freiheit (U3/U6)<br>Parkhaus vorhanden</div>
-        </div>
-      </div>
-    </div>
-    <div class="reserve-panel">
-      <h3>Reservierung anfragen</h3>
-      <p>Für Reservierungen empfehlen wir einen frühen Vorlauf — insbesondere am Wochenende sind Tische im Restaurant Tantris oft Monate im Voraus vergeben.</p>
-      <a href="tel:+498936195900" class="btn-primary">+49 89 36 19 59-0</a>
-      <a href="mailto:contact@tantris.de" class="btn-ghost">contact@tantris.de</a>
+
+<!-- Additional Gallery Row -->
+<section class="section" style="padding:3rem 2rem">
+  <div class="section-inner">
+    <div class="gallery-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="gallery-item" style="aspect-ratio:16/9;grid-column:span 2"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=80" alt="Küche in Aktion" loading="lazy"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&q=80" alt="Dessert" loading="lazy"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&q=80" alt="Gericht Detail" loading="lazy"></div>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="footer-logo">TANTRIS</div>
-  <div class="michelin-badge">★★ Michelin Guide · München</div>
-  <div class="footer-copy">Johann-Fichte-Straße 7 · 80805 München<br>© 2024 Tantris Maison Culinaire</div>
+<!-- Process Section -->
+<section class="section" style="background:var(--bg-light);padding:5rem 2rem">
+  <div class="section-inner section-center">
+    <p class="section-label">Unser Prozess</p>
+    <h2 class="section-title">Vom Markt auf Ihren Teller</h2>
+    <div class="divider"></div>
+    <div class="highlights-grid" style="margin-top:3rem;grid-template-columns:repeat(4,1fr)">
+      <div class="highlight-card" style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--accent);opacity:.5;margin-bottom:1rem">01</div>
+        <h3 style="font-size:1.1rem">Auswahl</h3>
+        <p style="font-size:.85rem">Jeden Morgen wählen wir die frischesten und besten Zutaten von unseren vertrauenswürdigen regionalen Lieferanten und dem lokalen Markt aus.</p>
+      </div>
+      <div class="highlight-card" style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--accent);opacity:.5;margin-bottom:1rem">02</div>
+        <h3 style="font-size:1.1rem">Kreation</h3>
+        <p style="font-size:.85rem">Unser Küchenchef entwickelt aus den besten Produkten des Tages einzigartige Kreationen, die saisonale Aromen perfekt einfangen und zur Geltung bringen.</p>
+      </div>
+      <div class="highlight-card" style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--accent);opacity:.5;margin-bottom:1rem">03</div>
+        <h3 style="font-size:1.1rem">Zubereitung</h3>
+        <p style="font-size:.85rem">Mit handwerklicher Präzision und modernsten Techniken werden unsere Gerichte frisch zubereitet — jeder Teller ist ein Unikat mit individueller Note.</p>
+      </div>
+      <div class="highlight-card" style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--accent);opacity:.5;margin-bottom:1rem">04</div>
+        <h3 style="font-size:1.1rem">Genuss</h3>
+        <p style="font-size:.85rem">Perfekt angerichtet kommt das Gericht auf Ihren Tisch — begleitet von der passenden Weinempfehlung und einem aufmerksamen, herzlichen Service.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter/Closing -->
+<section class="section section-center" style="padding:5rem 2rem">
+  <div class="section-inner">
+    <p class="section-label">Bleiben Sie informiert</p>
+    <h2 class="section-title">Neuigkeiten &amp; Empfehlungen</h2>
+    <div class="divider" style="margin:2rem auto"></div>
+    <p class="section-text" style="margin:0 auto 2rem">Folgen Sie uns auf Social Media, um keine Neuigkeiten zu verpassen. Von saisonalen Menü-Updates über besondere Events bis hin zu exklusiven Einblicken hinter die Kulissen unserer Küche.</p>
+    <a href="#contact" class="hero-cta">Kontakt aufnehmen</a>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div class="cta-banner">
+  <h2>Ihr Tisch wartet</h2>
+  <p>Reservieren Sie jetzt Ihren Platz und erleben Sie einen unvergesslichen Abend bei Tantris.</p>
+  <a href="#contact" class="hero-cta">Jetzt reservieren</a>
+</div>
+
+<!-- Contact -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <p class="section-label">Kontakt</p>
+    <h2 class="section-title">Besuchen Sie uns</h2>
+    <div class="divider"></div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-block">
+          <h3>Adresse</h3>
+          <p>Johann-Fichte-Straße 7<br>80805 München</p>
+        </div>
+        <div class="contact-block">
+          <h3>Reservierung</h3>
+          <p>Telefon: (089) 3619590<br>E-Mail: contact@tantris.de</p>
+        </div>
+        <div class="contact-block">
+          <h3>Öffnungszeiten</h3>
+          <p>Mittwoch – Sonntag: 12:00 – 14:30 &amp; 18:30 – 22:00 Uhr<br>Montag &amp; Dienstag: Ruhetag<br><em style="color:var(--accent);font-size:.8rem">[VERIFIZIEREN — Öffnungszeiten vor Besuch bestätigen]</em></p>
+        </div>
+        <div class="contact-block">
+          <h3>Online</h3>
+          <p><a href="https://tantris.de" target="_blank" rel="noopener">Offizielle Website besuchen &rarr;</a></p>
+        </div>
+      </div>
+      <div class="contact-map">
+        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Johann-Fichte-Straße+7,+80805+München&zoom=15" allowfullscreen loading="lazy" title="Karte Tantris"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand"><span>Tantris</span></div>
+      <p class="footer-desc">Maison Culinaire seit 1971. München — Schwabing.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#highlights">Highlights</a></li>
+        <li><a href="#about">Über uns</a></li>
+        <li><a href="#menu">Speisekarte</a></li>
+        <li><a href="#gallery">Galerie</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="tel:(089) 3619590">(089) 3619590</a></li>
+        <li><a href="mailto:contact@tantris.de">contact@tantris.de</a></li>
+        <li><a href="https://tantris.de" target="_blank" rel="noopener">Website</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Tantris. Alle Rechte vorbehalten.</p>
+    <ul class="footer-bottom-links">
+      <li><a href="#">Impressum</a></li>
+      <li><a href="#">Datenschutz</a></li>
+    </ul>
+  </div>
 </footer>
 
 <script>
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
+// Navbar scroll
+const nav=document.getElementById('nav');
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>80);
+});
+
+// Mobile nav
+const toggle=document.getElementById('navToggle');
+const mobileNav=document.getElementById('mobileNav');
+toggle.addEventListener('click',()=>{
+  mobileNav.classList.toggle('active');
+  const spans=toggle.querySelectorAll('span');
+  if(mobileNav.classList.contains('active')){
+    spans[0].style.transform='rotate(45deg) translate(5px,5px)';
+    spans[1].style.opacity='0';
+    spans[2].style.transform='rotate(-45deg) translate(5px,-5px)';
+  }else{
+    spans[0].style.transform='none';
+    spans[1].style.opacity='1';
+    spans[2].style.transform='none';
+  }
+});
+function closeMobileNav(){
+  mobileNav.classList.remove('active');
+  const spans=toggle.querySelectorAll('span');
+  spans[0].style.transform='none';
+  spans[1].style.opacity='1';
+  spans[2].style.transform='none';
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    const t=document.querySelector(this.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
   });
+});
+
+// Intersection Observer for fade-in
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.highlight-card,.menu-category,.gallery-item,.contact-block,.testimonial-card,.about-image,.about-text').forEach((el,i)=>{
+  el.classList.add('fade-in');
+  if(i%3===1)el.classList.add('fade-in-delay-1');
+  if(i%3===2)el.classList.add('fade-in-delay-2');
+  obs.observe(el);
+});
+
+// Parallax effect
+window.addEventListener('scroll',()=>{
+  const q=document.querySelector('.parallax-quote-bg');
+  if(q){
+    const r=q.parentElement.getBoundingClientRect();
+    if(r.top<window.innerHeight&&r.bottom>0){
+      q.style.transform='translateY('+(r.top*0.3)+'px)';
+    }
+  }
+});
+
+// Counter animation for stats
+function animateValue(el,start,end,duration){
+  let startTime=null;
+  function animation(currentTime){
+    if(!startTime)startTime=currentTime;
+    const progress=Math.min((currentTime-startTime)/duration,1);
+    el.textContent=Math.floor(progress*(end-start)+start);
+    if(progress<1)requestAnimationFrame(animation);
+  }
+  requestAnimationFrame(animation);
+}
 </script>
 </body>
 </html>
